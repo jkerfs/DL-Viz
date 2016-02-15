@@ -8,6 +8,7 @@
 }
 
 .node text {
-  font: 9px helvetica;
+    pointer-events: none;
+    font: 10px sans-serif;
   color:white;
 }

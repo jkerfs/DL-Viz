@@ -4,6 +4,8 @@
     height = 600,
     colors = d3.scale.category10();
 
+    var link_data = [];
+
   var setChar = 'ABCDEFGHIJKLMN',
     charFn = i => setChar[i],
     setLength = 4,
@@ -12,7 +14,7 @@
     })
 
   var opts = {
-    dataLength: 180,
+    dataLength: 3,
     setLength: 4,
     duration: 800,
     circleOpacity: 0.4,
@@ -49,6 +51,50 @@
     refresh();
   }
 
+  function parseLine(str) {
+    var re = /(.*)\((.*)\)/;
+    var parts = str.match(re);
+
+    if (parts[2].includes(",")) {
+      parts[2].replace(" ", "");
+      var individuals = parts[2].split(",")
+      return {
+        "role": parts[1],
+        "individuals": individuals
+      };
+    }
+    else {
+      return {
+        "concept": parts[1],
+        "individual": parts[2]
+      }
+    }
+  }
+
+  d3.select("button#refresh").on('click', function() {
+
+    globalData = [];
+    var lines = $("#abox").val().split("\n");
+    for (var i = 0; i < lines.length; i++) {
+      var item = parseLine(lines[i]);
+      var found = false;
+      for(var j = 0; j < globalData.length; j++) {
+        if (globalData[j].name == item.individual) {
+          found = true;
+
+            globalData[j].set.push(item.concept);
+
+
+          break;
+        }
+      }
+      if(!found) {
+        globalData.push({set: [item.concept], r: 8, name: item.individual});
+      }
+    }
+    link_data = {"source" : globalData[0], "target": globalData[1]};
+    refresh(globalData);
+  })
   //set input value accorging to options and handle change of input
   d3.selectAll('#inputs input')
     .each(function() {
@@ -74,12 +120,14 @@
     generator = 0;
 
   function generateData() {
+    console.log("generating...")
     var dataLength = test.dataLength(),
       setLength = test.setLength(),
       diff = dataLength - globalData.length;
 
     if (diff > 0) {
-
+      console.log(diff);
+      console.log(globalData);
       globalData = globalData.concat(d3.range(diff).map((d, i) => {
         var l = Math.floor((Math.random() * setLength / 3) + 1),
           set = [],
@@ -195,7 +243,8 @@
       });
     circleContainer.exit().remove();
 
-    var points = circleContainer.selectAll("circle.node")
+    circleContainer.selectAll("g.node").remove();
+    var points = circleContainer.selectAll("g.node")
       .data(function(d) {
         return d.nodes
       }, function(d) {
@@ -203,19 +252,54 @@
       })
 
     var pointsEnter = points.enter()
-      .append('circle')
-      .attr('r', 0)
+      .append('g')
       .attr('class', 'node')
-      .call(layout.packer().drag)
+      .on('mouseover', function(d,i) {
+        d3.select(this).select('text')
+          .style('opacity', 1)
+      })
+      .on('mouseout', function() {
+        d3.select(this).select('text')
+          .style('opacity', 0)
+      }).call(layout.packer().drag);
 
-    points.transition()
+    pointsEnter
+      .append('text')
+      .text(function(d) {return d.name})
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      .style('opacity', 0);
+
+    var pointsInner = points.append('circle').attr('r', 0);
+
+
+      var link = svg.selectAll(".link")
+          .data(link_data)
+          .enter().append("line")
+          .attr("class", "link")
+          .attr("x1", function (d) {
+              return d.source.px;
+          })
+              .attr("y1", function (d) {
+              return d.source.py;
+          })
+              .attr("x2", function (d) {
+              return d.target.px;
+          })
+              .attr("y2", function (d) {
+              return d.target.py;
+          })
+          .style("stroke-width", function (d) {
+          return 10;
+      });
+
+    pointsInner.transition()
       .duration(isFirstLayout ? 0 : test.duration())
       .attr('r', function(d) {
         return d.r
       })
 
     points.exit().transition()
-      .attr('r', 0)
       .remove()
 
     isFirstLayout = false;
@@ -223,7 +307,24 @@
     //set the force ticker
     layout.packingConfig({
         ticker: function() {
-          points.attr("cx", function(d) {
+          link.attr("x1", function (d) {
+              return d.source.px;
+          })
+              .attr("y1", function (d) {
+              return d.source.py;
+          })
+              .attr("x2", function (d) {
+              return d.target.px;
+          })
+              .attr("y2", function (d) {
+              return d.target.py;
+          });
+          pointsEnter.select('text').attr('x', function(d) {
+            return d.x;
+          }).attr('y', function(d) {
+            return d.y;
+          });
+          pointsInner.attr("cx", function(d) {
               return d.x
             })
             .attr("cy", function(d) {

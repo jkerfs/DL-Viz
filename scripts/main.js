@@ -1,3 +1,4 @@
+/*
 //Constants for the SVG
 var width = 980,
     height = 640;
@@ -141,6 +142,7 @@ function parseLine(str) {
   }
 }
 
+
 $("#refresh").click(function() {
   var lines = $("#abox").val().split("\n");
 
@@ -183,3 +185,4 @@ $("#refresh").click(function() {
   restart();
 
 });
+*/
