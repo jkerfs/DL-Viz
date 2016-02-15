@@ -4,7 +4,7 @@
     height = 600,
     colors = d3.scale.category10();
 
-    var link_data = [];
+    var linkData = [];
 
   var setChar = 'ABCDEFGHIJKLMN',
     charFn = i => setChar[i],
@@ -72,27 +72,43 @@
   }
 
   d3.select("button#refresh").on('click', function() {
-
+    linkData = [];
     globalData = [];
     var lines = $("#abox").val().split("\n");
     for (var i = 0; i < lines.length; i++) {
       var item = parseLine(lines[i]);
-      var found = false;
-      for(var j = 0; j < globalData.length; j++) {
-        if (globalData[j].name == item.individual) {
-          found = true;
-
+      if(item.concept != undefined) {
+        var found = false;
+        for(var j = 0; j < globalData.length; j++) {
+          if (globalData[j].name == item.individual) {
+            found = true;
             globalData[j].set.push(item.concept);
-
-
-          break;
+            break;
+          }
+        }
+        if(!found) {
+          globalData.push({set: [item.concept], r: 8, name: item.individual});
         }
       }
-      if(!found) {
-        globalData.push({set: [item.concept], r: 8, name: item.individual});
+      else if(item.role != undefined) {
+        var firstIndex = -1;
+        var secondIndex = -1;
+        for(var j = 0; j < globalData.length; j++) {
+          if (globalData[j].name == item.individuals[0]) {
+            firstIndex = j;
+          }
+          else if (globalData[j].name == item.individuals[1]) {
+            secondIndex = j;
+          }
+        }
+        console.log(firstIndex);
+        console.log(secondIndex);
+        if(firstIndex >= 0 && secondIndex >= 0) {
+          linkData.push({"source": globalData[firstIndex], "target" : globalData[secondIndex]});
+        }
       }
     }
-    link_data = {"source" : globalData[0], "target": globalData[1]};
+    console.log(linkData);
     refresh(globalData);
   })
   //set input value accorging to options and handle change of input
@@ -120,14 +136,11 @@
     generator = 0;
 
   function generateData() {
-    console.log("generating...")
     var dataLength = test.dataLength(),
       setLength = test.setLength(),
       diff = dataLength - globalData.length;
 
     if (diff > 0) {
-      console.log(diff);
-      console.log(globalData);
       globalData = globalData.concat(d3.range(diff).map((d, i) => {
         var l = Math.floor((Math.random() * setLength / 3) + 1),
           set = [],
@@ -272,9 +285,10 @@
 
     var pointsInner = points.append('circle').attr('r', 0);
 
+    svg.selectAll(".link").remove();
 
       var link = svg.selectAll(".link")
-          .data(link_data)
+          .data(linkData)
           .enter().append("line")
           .attr("class", "link")
           .attr("x1", function (d) {
@@ -288,10 +302,7 @@
           })
               .attr("y2", function (d) {
               return d.target.py;
-          })
-          .style("stroke-width", function (d) {
-          return 10;
-      });
+          });
 
     pointsInner.transition()
       .duration(isFirstLayout ? 0 : test.duration())
