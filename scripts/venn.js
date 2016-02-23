@@ -1,7 +1,7 @@
 (function test() {
 
-  var width = 600,
-    height = 600,
+  var width = Number(d3.select("svg#venn-viz").style("width").replace("px","")),
+    height = Number(d3.select("svg#venn-viz").style("height").replace("px","")),
     colors = d3.scale.category10();
 
     var linkData = [];
@@ -35,30 +35,6 @@
     .append("svg:path")
       .attr("d", "M0,-5L10,0L0,5");
 
-  //Display what concepts an individual is part of
-  d3.select("svg#venn-viz")
-    .append("text")
-    .attr("x", 20)
-    .attr("y", 30)
-    .attr("fill", "white")
-    .attr("class", "belongsto");
-
-  //Display what roles a concept is subject of
-  d3.select("svg#venn-viz")
-    .append("text")
-    .attr("x", 20)
-    .attr("y", 50)
-    .attr("fill", "white")
-    .attr("class", "subjectof");
-
-  //Display what roles a concept is object of
-    d3.select("svg#venn-viz")
-      .append("text")
-      .attr("x", 20)
-      .attr("y", 70)
-      .attr("fill", "white")
-      .attr("class", "objectof");
-
   // Build simple getter and setter Functions
   for (var key in opts) {
     test[key] = getSet(key, test).bind(opts);
@@ -88,32 +64,41 @@
     refresh();
   }
 
-  function parseLine(str) {
+  function parseConcept(str) {
+    if(str.indexOf("(") >= str.indexOf(")"))
+      return {};
+
     var re = /(.*)\((.*)\)/;
     var parts = str.match(re);
 
-    if (parts[2].includes(",")) {
-      parts[2].replace(" ", "");
-      var individuals = parts[2].split(",")
-      return {
-        "role": parts[1],
-        "individuals": individuals
-      };
-    }
-    else {
-      return {
-        "concept": parts[1],
-        "individual": parts[2]
-      }
+    return {
+      "concept": parts[1],
+      "individual": parts[2]
     }
   }
 
+  function parseRole(str) {
+    if(str.indexOf("(") >= str.indexOf(")"))
+      return {};
+    if(str.indexOf(",") == -1)
+      return {};
+
+    var re = /(.*)\((.*)\)/;
+    var parts = str.match(re);
+
+    parts[2].replace(" ", "");
+    var individuals = parts[2].split(",")
+    return {
+      "role": parts[1],
+      "individuals": individuals
+    };
+  }
   d3.select("button#refresh").on('click', function() {
     linkData = [];
     globalData = [];
-    var lines = $("#abox").val().split("\n");
+    var lines = $("#concepts").val().split("\n");
     for (var i = 0; i < lines.length; i++) {
-      var item = parseLine(lines[i]);
+      var item = parseConcept(lines[i]);
       if(item.concept != undefined) {
         var found = false;
         for(var j = 0; j < globalData.length; j++) {
@@ -127,7 +112,11 @@
           globalData.push({set: [item.concept], r: 8, name: item.individual});
         }
       }
-      else if(item.role != undefined) {
+    }
+    lines = $("#roles").val().split("\n");
+    for(var i = 0; i < lines.length; i++) {
+      var item = parseRole(lines[i]);
+      if(item.role != undefined) {
         var firstIndex = -1;
         var secondIndex = -1;
         for(var j = 0; j < globalData.length; j++) {
@@ -138,16 +127,14 @@
             secondIndex = j;
           }
         }
-        console.log(firstIndex);
-        console.log(secondIndex);
         if(firstIndex >= 0 && secondIndex >= 0) {
           linkData.push({"source": globalData[firstIndex], "target" : globalData[secondIndex], "name": item.role});
         }
       }
     }
-    console.log(linkData);
     refresh(globalData);
-  })
+  });
+
   //set input value accorging to options and handle change of input
   d3.selectAll('#inputs input')
     .each(function() {
@@ -338,7 +325,8 @@
       .append('g')
       .attr('class', 'node')
       .on('mouseover', function(d,i) {
-        d3.select("text.belongsto").text("Member of: " + d.set.toString());
+        d3.select("span#individual-name").text(d.name);
+        d3.select("span#member-of").text(d.set.toString());
         subs = []
         obs = []
         for(var i = 0; i < linkData.length; i++) {
@@ -347,16 +335,18 @@
           if(linkData[i].target.name == d.name)
             obs.push(linkData[i].name);
         }
-        d3.select("text.subjectof").text("Subject of: " + subs.toString());
-        d3.select("text.objectof").text("Object of: " + obs.toString());
+        d3.select("span#subject-of").text(subs.toString());
+        d3.select("span#object-of").text(obs.toString());
         d3.select(this).select('text')
+          .transition()
+          .duration(200)
           .style('opacity', 1)
       })
       .on('mouseout', function() {
-        d3.select("text.belongsto").text("");
-        d3.select("text.objectof").text("");
-        d3.select("text.osubjectof").text("");
+        d3.selectAll("span.hover-data").text("");
         d3.select(this).select('text')
+          .transition()
+          .duration(200)
           .style('opacity', 0)
       }).call(layout.packer().drag);
 

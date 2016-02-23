@@ -17,19 +17,42 @@
             <nav>
               <ul class="nav masthead-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a id="example-link" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Examples</a></li>
+                <li><a href="#">Help</a></li>
               </ul>
             </nav>
           </div>
         </div>
 
         <div class="inner cover">
-          <svg width=980 height=640 id="venn-viz"></svg>
-
-          <textarea class="form-control" id="abox"></textarea>
-          <br>
+          <div class="col-md-8">
+          <svg id="venn-viz"></svg>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+          <div>Individual: <span class="hover-data" id="individual-name"></span></div>
+          <div>Member of: <span class="hover-data" id="member-of"></span></div>
+          <div>Subject of: <span class="hover-data" id="subject-of"></span></div>
+          <div>Object of: <span class="hover-data" id="object-of"></span></div>
+        </div>
+        <br>
+        <br>
+          <form>
+            <div class="form-group">
+              <label for="concepts">Concepts</label>
+                <textarea class="form-control" id="concepts"></textarea>
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="concepts">Roles</label>
+                <textarea class="form-control" id="roles"></textarea>
+              </label>
+            </div>
+          </form>
           <button  class="btn btn-primary btn-lg" id="refresh">Refresh</button>
+
+          <br>
+        </div>
         </div>
 
         <div class="mastfoot">
@@ -44,7 +67,23 @@
 
   </div>
 
-
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">Examples</h4>
+        </div>
+        <div class="modal-body">
+        <ul>
+          <li><a href="?content=pizza.json">Pizza</a></li>
+          <li><a href="?content=evolution.json">Evolution</a></li>
+          <li><a href="?content=foodweb.json">Food Web</a></li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </div>
 <script src="scripts/d3.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="scripts/d3-venn.js"></script>
 <script src="scripts/jquery-2.2.0.min.js"></script>

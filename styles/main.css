@@ -33,8 +33,7 @@ body {
 }
 body {
   color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -157,10 +156,22 @@ body {
   }
 }
 
-@media (min-width: 992px) {
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 700px;
-  }
+#concepts {
+  resize:vertical;
+  height:150px;
+}
+#roles {
+  resize: vertical;
+  height:150px;
+}
+#venn-viz {
+  width:100%;
+  min-height:600px;
+}
+.modal-content {
+  color:black;
+
+}
+.modal-content a {
+  color: #337ab7;
 }
