@@ -21,6 +21,43 @@
     innerOpacity: 0.2
   };
 
+  d3.select("svg#venn-viz").append("svg:defs").selectAll("marker")
+      .data(["end"])      // Different link/path types can be defined here
+    .enter().append("svg:marker")    // This section adds in the arrows
+      .attr("id", String)
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 15)
+      .attr("fill", "white")
+      .attr("refY", -1.5)
+      .attr("markerWidth", 6)
+      .attr("markerHeight", 6)
+      .attr("orient", "auto")
+    .append("svg:path")
+      .attr("d", "M0,-5L10,0L0,5");
+
+  //Display what concepts an individual is part of
+  d3.select("svg#venn-viz")
+    .append("text")
+    .attr("x", 20)
+    .attr("y", 30)
+    .attr("fill", "white")
+    .attr("class", "belongsto");
+
+  //Display what roles a concept is subject of
+  d3.select("svg#venn-viz")
+    .append("text")
+    .attr("x", 20)
+    .attr("y", 50)
+    .attr("fill", "white")
+    .attr("class", "subjectof");
+
+  //Display what roles a concept is object of
+    d3.select("svg#venn-viz")
+      .append("text")
+      .attr("x", 20)
+      .attr("y", 70)
+      .attr("fill", "white")
+      .attr("class", "objectof");
 
   // Build simple getter and setter Functions
   for (var key in opts) {
@@ -104,7 +141,7 @@
         console.log(firstIndex);
         console.log(secondIndex);
         if(firstIndex >= 0 && secondIndex >= 0) {
-          linkData.push({"source": globalData[firstIndex], "target" : globalData[secondIndex]});
+          linkData.push({"source": globalData[firstIndex], "target" : globalData[secondIndex], "name": item.role});
         }
       }
     }
@@ -242,6 +279,37 @@
       })
       .remove()
 
+
+      svg.selectAll("path.curvelink").remove();
+
+      // add the links and the arrows
+      var path = svg.append("svg:g").selectAll("path")
+          .data(linkData)
+        .enter().append("svg:path")
+          .attr("id", function(d) { return d.name + "-" + d.source.name + "-" + d.target.name; })
+          .attr("class", "curvelink")
+          .attr("marker-end", "url(#end)");
+
+
+          svg.selectAll(".link").remove();
+          svg.selectAll("text.linkdesc").remove();
+
+          var linkdesc = svg.selectAll(".linkdesc")
+            .data(linkData)
+            .enter().append("text")
+            .attr("class", "linkdesc")
+            .attr("fill", "white")
+            .append("textPath")
+            .attr("xlink:href", function(d) { return "#" + d.name + "-" + d.source.name + "-" + d.target.name;})
+            .attr("startOffset", "40%")
+            .text(function(d) {return d.name} )
+            .attr("x", function (d) {
+                return d.source.px;
+            })
+                .attr("y", function (d) {
+                return d.source.py;
+            });
+
     // need this so that nodes always on top
     var circleContainer = svg.selectAll("g.venn-circle-container")
       .data(layout.sets().values(), function(d) {
@@ -264,14 +332,30 @@
         return d.name
       })
 
+
+
     var pointsEnter = points.enter()
       .append('g')
       .attr('class', 'node')
       .on('mouseover', function(d,i) {
+        d3.select("text.belongsto").text("Member of: " + d.set.toString());
+        subs = []
+        obs = []
+        for(var i = 0; i < linkData.length; i++) {
+          if(linkData[i].source.name == d.name)
+            subs.push(linkData[i].name);
+          if(linkData[i].target.name == d.name)
+            obs.push(linkData[i].name);
+        }
+        d3.select("text.subjectof").text("Subject of: " + subs.toString());
+        d3.select("text.objectof").text("Object of: " + obs.toString());
         d3.select(this).select('text')
           .style('opacity', 1)
       })
       .on('mouseout', function() {
+        d3.select("text.belongsto").text("");
+        d3.select("text.objectof").text("");
+        d3.select("text.osubjectof").text("");
         d3.select(this).select('text')
           .style('opacity', 0)
       }).call(layout.packer().drag);
@@ -285,24 +369,10 @@
 
     var pointsInner = points.append('circle').attr('r', 0);
 
-    svg.selectAll(".link").remove();
 
-      var link = svg.selectAll(".link")
-          .data(linkData)
-          .enter().append("line")
-          .attr("class", "link")
-          .attr("x1", function (d) {
-              return d.source.px;
-          })
-              .attr("y1", function (d) {
-              return d.source.py;
-          })
-              .attr("x2", function (d) {
-              return d.target.px;
-          })
-              .attr("y2", function (d) {
-              return d.target.py;
-          });
+
+
+
 
     pointsInner.transition()
       .duration(isFirstLayout ? 0 : test.duration())
@@ -318,18 +388,20 @@
     //set the force ticker
     layout.packingConfig({
         ticker: function() {
-          link.attr("x1", function (d) {
-              return d.source.px;
-          })
-              .attr("y1", function (d) {
-              return d.source.py;
-          })
-              .attr("x2", function (d) {
-              return d.target.px;
-          })
-              .attr("y2", function (d) {
-              return d.target.py;
-          });
+
+          path.attr("d", function(d) {
+    var dx = d.target.x - d.source.x,
+        dy = d.target.y - d.source.y,
+        dr = Math.sqrt(dx * dx + dy * dy);
+    return "M" +
+        d.source.x + "," +
+        d.source.y + "A" +
+        dr + "," + dr + " 0 0,1 " +
+        d.target.x + "," +
+        d.target.y;
+});
+
+
           pointsEnter.select('text').attr('x', function(d) {
             return d.x;
           }).attr('y', function(d) {
@@ -348,5 +420,5 @@
     layout.packer().start()
     return test
   }
-  return refresh(generateData())
+  //return refresh(generateData())
 })();

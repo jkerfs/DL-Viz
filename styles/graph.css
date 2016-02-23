@@ -12,3 +12,10 @@
     font: 10px sans-serif;
   color:white;
 }
+
+.curvelink {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+  color:white;
+}

@@ -432,7 +432,7 @@
        .nodes(data)
        .links([])
        .gravity(0)
-       .charge(0)
+       .charge(-50)
        .size(size)
        .on('start', init)
        .on('tick', tick)
