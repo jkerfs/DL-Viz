@@ -2,13 +2,27 @@
 "concepts":  [
   "Pizza(AllMeat)",
   "Pizza(Margharita)",
-  "Topping(Sausage)",
+  "Pizza(BBQChicken)",
+  "Topping(Mozzarella)",
   "Topping(Pepperoni)",
-  "Topping(Chicken)"
+  "Topping(Sausage)",
+  "Topping(Mushroom)",
+  "Topping(Chicken)",
+  "Topping(BellPeppers)",
+  "Sauce(BBQ)",
+  "Sauce(Tomato)",
+  "Sauce(Pesto)",
+  "Sauce(White)",
+  "VeggieTopping(Mushroom)",
+  "VeggieTopping(BellPeppers)"
 ],
  "roles": [
    "HasTopping(AllMeat,Pepperoni)",
    "HasTopping(AllMeat,Sausage)",
-   "HasTopping(AllMeat,Chicken)"
+   "HasTopping(AllMeat,Chicken)",
+   "HasTopping(Margharita,Mozzarella)",
+   "HasSauce(Margharita,Tomato)",
+   "HasTopping(BBQChicken,Chicken)",
+   "HasSauce(BBQChicken,BBQ)"
  ]
 }
