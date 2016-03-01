@@ -10,5 +10,5 @@ gulp.task('serve', function() {
     }
   });
 
-  gulp.watch(['*.html', 'styles/*.css', 'scripts/*.js'], {cwd: './'}, reload);
+  gulp.watch(['*.html', 'styles/*.css', 'scripts/*.js', 'examples/pizza.json'], {cwd: './'}, reload);
 });

@@ -175,3 +175,7 @@ body {
 .modal-content a {
   color: #337ab7;
 }
+
+.masthead-brand a {
+  text-decoration: none;
+}

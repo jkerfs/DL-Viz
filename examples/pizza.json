@@ -1,0 +1,14 @@
+{
+"concepts":  [
+  "Pizza(AllMeat)",
+  "Pizza(Margharita)",
+  "Topping(Sausage)",
+  "Topping(Pepperoni)",
+  "Topping(Chicken)"
+],
+ "roles": [
+   "HasTopping(AllMeat,Pepperoni)",
+   "HasTopping(AllMeat,Sausage)",
+   "HasTopping(AllMeat,Chicken)"
+ ]
+}

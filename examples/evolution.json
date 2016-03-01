@@ -1,0 +1,10 @@
+{
+"concepts":  [
+  "Amphibian(Alligator)",
+  "Amphibian(Snake)",
+  "Fish(Tuna)"
+],
+ "roles": [
+   "From(Tuna,Snake)"
+ ]
+}

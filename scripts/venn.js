@@ -410,5 +410,28 @@
     layout.packer().start()
     return test
   }
-  //return refresh(generateData())
+
+  var content = window.location.href.split('?content=');
+  if(content.length == 2) {
+    $.getJSON( "examples/" + content[1], function( data ) {
+      console.log(data);
+      $.each(data.concepts,function(i,d) {
+        $("#concepts").val(function(ind, val) {
+          return val + d + "\n";
+        });
+      });
+      $.each(data.roles, function(i,d) {
+        $("#roles").val(function(ind, val) {
+          return val + d + "\n";
+        });
+      });
+    });
+  }
+
+  $('.masthead-nav li a').click(function()
+  {
+    $('.masthead-nav li').removeClass('active');
+    $(this).parent().addClass('active');
+  });
+  
 })();
