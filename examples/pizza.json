@@ -6,9 +6,7 @@
   "Topping(Mozzarella)",
   "Topping(Pepperoni)",
   "Topping(Sausage)",
-  "Topping(Mushroom)",
   "Topping(Chicken)",
-  "Topping(BellPeppers)",
   "Sauce(BBQ)",
   "Sauce(Tomato)",
   "Sauce(Pesto)",
@@ -24,5 +22,8 @@
    "HasSauce(Margharita,Tomato)",
    "HasTopping(BBQChicken,Chicken)",
    "HasSauce(BBQChicken,BBQ)"
+ ],
+ "tbox": [
+   "VeggieTopping SUBSET Topping"
  ]
 }

@@ -50,36 +50,7 @@
     };
   }
 
-  function parseConcept(str) {
-    if (str.indexOf("(") >= str.indexOf(")"))
-      return {};
-
-    var re = /(.*)\((.*)\)/;
-    var parts = str.match(re);
-
-    return {
-      "concept": parts[1],
-      "individual": parts[2]
-    }
-  }
-
-  function parseRole(str) {
-    if (str.indexOf("(") >= str.indexOf(")"))
-      return {};
-    if (str.indexOf(",") == -1)
-      return {};
-
-    var re = /(.*)\((.*)\)/;
-    var parts = str.match(re);
-
-    parts[2].replace(" ", "");
-    var individuals = parts[2].split(",")
-    return {
-      "role": parts[1],
-      "individuals": individuals
-    };
-  }
-  d3.select("button#refresh").on('click', function() {
+  function readData() {
     linkData = [];
     globalData = [];
     var lines = $("#concepts").val().split("\n");
@@ -125,7 +96,22 @@
         }
       }
     }
+    lines = $("#tbox").val().split("\n");
+    for (var i = 0; i < lines.length; i++) {
+      var relation = parseRelation(lines[i]);
+      console.log(relation);
+      for(var j = 0; j < globalData.length; j++) {
+        if($.inArray(relation.left, globalData[j].set) >= 0) {
+          console.log(globalData[j]);
+          globalData[j].set.push(relation.right);
+        }
+      }
+    }
     refresh(globalData);
+  }
+  
+  d3.select("button#refresh").on('click', function() {
+    readData();
   });
 
 

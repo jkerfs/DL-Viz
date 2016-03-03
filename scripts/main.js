@@ -13,6 +13,7 @@ $('.modal').on('hidden.bs.modal', function () {
 function renderData(data) {
   $("#concepts").val("");
   $("#roles").val("");
+  $("#tbox").val("");
   $.each(data.concepts, function(i, d) {
     $("#concepts").val(function(ind, val) {
       return val + d + "\n";
@@ -20,6 +21,11 @@ function renderData(data) {
   });
   $.each(data.roles, function(i, d) {
     $("#roles").val(function(ind, val) {
+      return val + d + "\n";
+    });
+  });
+  $.each(data.tbox, function(i, d) {
+    $("#tbox").val(function(ind, val) {
       return val + d + "\n";
     });
   });
@@ -40,6 +46,7 @@ function handleFileSelect(evt) {
   reader.onload = function(e) {
     var contents = JSON.parse(e.target.result);
     renderData(contents);
+    console.log(contents);
     $(".upload-modal").modal('hide');
   };
   reader.readAsText(file);

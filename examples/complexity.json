@@ -6,7 +6,13 @@
   "NP(GraphIsomorphism)",
   "NP(DiscreteLogarithm)",
   "NP(IntegerFactorization)",
-  "NP-Complete(SAT)"
+  "NP-Complete(SAT)",
+  "NP-Complete(VertexCover)",
+  "NP-Complete(TSP)",
+  "NP-Complete(Knapsack)"
 ],
- "roles": []
+ "roles": [],
+ "tbox": [
+   "NP-Complete SUBSET NP"
+ ]
 }
