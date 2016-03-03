@@ -109,7 +109,7 @@
     }
     refresh(globalData);
   }
-  
+
   d3.select("button#refresh").on('click', function() {
     readData();
   });
@@ -236,7 +236,8 @@
       })
       .attr("y", function(d) {
         return d.source.py;
-      });
+      })
+      .attr("opacity", 0);
 
     // need this so that nodes always on top
     var circleContainer = svg.selectAll("g.venn-circle-container")
@@ -264,6 +265,10 @@
       .append('g')
       .attr('class', 'node')
       .on('mouseover', function(d, i) {
+        svg.selectAll(".linkdesc").filter(function(l) {
+          return l.source.name == d.name || l.target.name == d.name;
+        }).select("textPath").attr("opacity", 1);
+
         d3.select(this).append("text").text(d.name)
           .attr("x", d.x + 12)
           .attr("y", d.y)
@@ -282,6 +287,7 @@
         d3.select("span#object-of").text(obs.toString());
       })
       .on('mouseout', function() {
+        d3.selectAll("textPath").attr("opacity", 0);
         d3.selectAll("span.hover-data").text("");
         d3.select(this).select("text").remove()
           .transition()
