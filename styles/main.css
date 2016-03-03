@@ -156,14 +156,11 @@ body {
   }
 }
 
-#concepts {
+textarea.form-control {
   resize:vertical;
   height:150px;
 }
-#roles {
-  resize: vertical;
-  height:150px;
-}
+
 #venn-viz {
   width:100%;
   min-height:600px;

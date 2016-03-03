@@ -1,0 +1,12 @@
+{
+"concepts":  [
+  "P(Sorting)",
+  "P(MST)",
+  "P(Search)",
+  "NP(GraphIsomorphism)",
+  "NP(DiscreteLogarithm)",
+  "NP(IntegerFactorization)",
+  "NP-Complete(SAT)"
+],
+ "roles": []
+}

@@ -4,6 +4,12 @@ $('.masthead-nav li a').click(function() {
   $(this).parent().addClass('active');
 });
 
+// Retrun to home when modal is closed
+$('.modal').on('hidden.bs.modal', function () {
+    $(".masthead-nav li").removeClass('active');
+    $(".masthead-nav li:first-child").addClass('active');
+});
+
 function renderData(data) {
   $("#concepts").val("");
   $("#roles").val("");
@@ -18,6 +24,7 @@ function renderData(data) {
     });
   });
 }
+
 //Load json data if there is a content param
 var content = window.location.href.split('?content=');
 if (content.length == 2) {
