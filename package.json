@@ -1,0 +1,26 @@
+{
+  "name": "dl_viz",
+  "version": "1.0.0",
+  "description": "Temporal Description Logic Visualization and Query Resolution",
+  "main": "gulpfile.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "browser-sync": "^2.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkerfs/DL-Viz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkerfs/DL-Viz/issues"
+  },
+  "homepage": "https://github.com/jkerfs/DL-Viz#readme"
+}
