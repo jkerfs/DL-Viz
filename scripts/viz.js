@@ -107,6 +107,34 @@
         }
       }
     }
+    
+    //TRANSITIVE Property that would work with textbox. (at moment super inefficient)
+    /*
+    lines = $("#transitive").val().split("\n");
+    // Runs through each line in textbox
+    for (var line = 0; line < lines.length; i++) {
+      var relation = lines[line].trim();
+      // Runs through all links
+      for(var rel1 = 0; j < linkData.length; j++) {
+        // Checks to see if the link is of correct relation
+        if(linkData[rel1].name === relation) {
+          // Looks through array for potential transitive matches
+          for(var rel2 = 0; rel2 < linkData.length; k++) {
+            // Checks to see if of correct relation, and that orig target is source
+            if(linkDara[rel2].name === relation && linkData[rel1].target === linkData[rel2].source)
+            {
+              linkData.push({
+                "source": linkData[rel1].source,
+                "target": linkData[rel2].target,
+                "name": relation
+              });
+            }
+          }
+        }
+      }
+    }
+    */
+    
     refresh(globalData);
   }
 
