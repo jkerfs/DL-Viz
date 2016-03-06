@@ -92,7 +92,7 @@
             "source": globalData[firstIndex],
             "target": globalData[secondIndex],
             "name": item.role,
-            "orientation" : Math.random() * 2 - 1
+            "orientation" : (Math.random() - 0.5)
           });
         }
       }
@@ -158,6 +158,8 @@
       // we recalculate the layout for new data only
       layout.nodes(data)
     }
+
+    svg.selectAll(".venn-circle-container").remove();
 
     var vennArea = svg.selectAll("g.venn-area")
       .data(layout.sets().values(), function(d) {

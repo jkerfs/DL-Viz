@@ -2044,15 +2044,14 @@
            set.forEach(function(val) {
              if (s = individualSets.get(val)) {
                s.size += 1;
-               // s.nodes.push([data[i]]);
+               s.nodes.push(data[i]);
 
              } else {
                individualSets.set(val, {
                  __key__: val,
                  size: 1,
                  sets: [val],
-                 nodes: []
-                   // nodes: [data[i]]
+                 nodes: [data[i]]
                })
              }
            });
@@ -2072,16 +2071,13 @@
 
        }
        individualSets.forEach(function(k, v) {
-         if (!sets.get(k)) {
            sets.set(k, v);
-         }
        });
        // reset the size for each set.
        sets.forEach(function(k, v) {
          v.size = size(v.size);
        })
        // sets = sets.values();
-
        venn.sets(sets);
        return sets;
      }
