@@ -6,12 +6,6 @@
 
   var linkData = [];
 
-  var setChar = 'ABCDEFGHIJKLMN',
-    charFn = i => setChar[i],
-    setLength = 4,
-    sets = d3.range(setLength).map(function(d, i) {
-      return setChar[i]
-    })
 
   var opts = {
     dataLength: 3,
@@ -52,7 +46,7 @@
 
   function readData() {
     linkData = [];
-    globalData = [];
+    var globalData = [];
     var lines = $("#concepts").val().split("\n");
     for (var i = 0; i < lines.length; i++) {
       var item = parseConcept(lines[i]);
@@ -100,10 +94,8 @@
     lines = $("#tbox").val().split("\n");
     for (var i = 0; i < lines.length; i++) {
       var relation = parseRelation(lines[i]);
-      console.log(relation);
       for(var j = 0; j < globalData.length; j++) {
         if($.inArray(relation.left, globalData[j].set) >= 0) {
-          console.log(globalData[j]);
           globalData[j].set.push(relation.right);
         }
       }
