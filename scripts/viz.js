@@ -85,7 +85,7 @@
             "source": globalData[firstIndex],
             "target": globalData[secondIndex],
             "name": item.role,
-            "orientation" : (Math.random() + 0.8)
+            "orientation" : (Math.random() + 1.0)
           });
         }
       }
@@ -294,7 +294,7 @@
         d3.select("span#individual-name").text(d.name);
 
         // Show the role membership of the node in the sidebar
-        d3.select("span#member-of").text(d.set.toString());
+        d3.select("span#member-of").text(d.__setKey__);
         subs = {}
         obs = {}
         related_nodes = [d.name];
@@ -329,7 +329,8 @@
           return $.inArray(j.name, related_nodes) >= 0;
         }).append("text")
           .attr("class", "node-name")
-          .attr("stroke-width", 0)
+          .attr("stroke", "black")
+          .attr("stroke-width", "1px")
           .attr("fill", "white")
           .text(function(k) { return k.name})
           .attr("x", d.x + 12)

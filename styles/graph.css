@@ -10,6 +10,7 @@
 .node text {
     pointer-events: none;
     font: 20px sans-serif;
+    font-weight: bold;
   color:white;
 }
 
@@ -21,5 +22,8 @@
 }
 
 text.label {
+  stroke:black;
+  stroke-width: 1px;
+  stroke-opacity:1.0;
   font-size: 30px;
 }
