@@ -6,12 +6,6 @@
 
   var linkData = [];
 
-  var setChar = 'ABCDEFGHIJKLMN',
-    charFn = i => setChar[i],
-    setLength = 4,
-    sets = d3.range(setLength).map(function(d, i) {
-      return setChar[i]
-    })
 
   var opts = {
     dataLength: 3,
@@ -52,7 +46,7 @@
 
   function readData() {
     linkData = [];
-    globalData = [];
+    var globalData = [];
     var lines = $("#concepts").val().split("\n");
     for (var i = 0; i < lines.length; i++) {
       var item = parseConcept(lines[i]);
@@ -91,7 +85,8 @@
           linkData.push({
             "source": globalData[firstIndex],
             "target": globalData[secondIndex],
-            "name": item.role
+            "name": item.role,
+            "orientation" : (Math.random() - 0.5)
           });
         }
       }
@@ -99,15 +94,13 @@
     lines = $("#tbox").val().split("\n");
     for (var i = 0; i < lines.length; i++) {
       var relation = parseRelation(lines[i]);
-      console.log(relation);
       for(var j = 0; j < globalData.length; j++) {
         if($.inArray(relation.left, globalData[j].set) >= 0) {
-          console.log(globalData[j]);
           globalData[j].set.push(relation.right);
         }
       }
     }
-    
+
     //TRANSITIVE Property that would work with textbox. (at moment super inefficient)
     /*
     lines = $("#transitive").val().split("\n");
@@ -134,7 +127,7 @@
       }
     }
     */
-    
+
     refresh(globalData);
   }
 
@@ -157,6 +150,8 @@
       // we recalculate the layout for new data only
       layout.nodes(data)
     }
+
+    svg.selectAll(".venn-circle-container").remove();
 
     var vennArea = svg.selectAll("g.venn-area")
       .data(layout.sets().values(), function(d) {
@@ -293,31 +288,57 @@
       .append('g')
       .attr('class', 'node')
       .on('mouseover', function(d, i) {
+
+        // Show the name of the node in the sidebar
+        d3.select("span#individual-name").text(d.name);
+
+        // Show the role membership of the node in the sidebar
+        d3.select("span#member-of").text(d.set.toString());
+        subs = {}
+        obs = {}
+        related_nodes = [d.name];
+        for (var i = 0; i < linkData.length; i++) {
+          if (linkData[i].source.name == d.name) {
+            subs[linkData[i].name] = 1 + (subs[linkData[i].name] || 0);
+            related_nodes.push(linkData[i].target.name);
+          }
+          if (linkData[i].target.name == d.name) {
+            obs[linkData[i].name] = 1 + (subs[linkData[i].name] || 0);
+            related_nodes.push(linkData[i].source.name);
+          }
+        }
+        var subject_str = JSON.stringify(subs)
+          .replace(/["{}]/g, "")
+          .replace(/:/g, ": ")
+          .replace(/,/g, ", ");
+        var object_str = JSON.stringify(obs)
+          .replace(/["{}]/g, "")
+          .replace(/:/g, ": ")
+          .replace(/,/g, ", ");
+        d3.select("span#subject-of").text(subject_str);
+        d3.select("span#object-of").text(object_str);
+
+        // Show the names of the roles
         svg.selectAll(".linkdesc").filter(function(l) {
           return l.source.name == d.name || l.target.name == d.name;
         }).select("textPath").attr("opacity", 1);
 
-        d3.select(this).append("text").text(d.name)
+        // Show the names of the related nodes
+        svg.selectAll(".node").filter(function(j) {
+          return $.inArray(j.name, related_nodes) >= 0;
+        }).append("text")
+          .attr("class", "node-name")
+          .attr("stroke-width", 0)
+          .attr("fill", "white")
+          .text(function(k) { return k.name})
           .attr("x", d.x + 12)
           .attr("y", d.y)
           .attr("dx", "12");
-        d3.select("span#individual-name").text(d.name);
-        d3.select("span#member-of").text(d.set.toString());
-        subs = []
-        obs = []
-        for (var i = 0; i < linkData.length; i++) {
-          if (linkData[i].source.name == d.name)
-            subs.push(linkData[i].name);
-          if (linkData[i].target.name == d.name)
-            obs.push(linkData[i].name);
-        }
-        d3.select("span#subject-of").text(subs.toString());
-        d3.select("span#object-of").text(obs.toString());
       })
       .on('mouseout', function() {
         d3.selectAll("textPath").attr("opacity", 0);
         d3.selectAll("span.hover-data").text("");
-        d3.select(this).select("text").remove()
+        d3.selectAll(".node-name").remove()
           .transition()
           .duration(200);
       }).call(layout.packer().drag);
@@ -340,7 +361,7 @@
           path.attr("d", function(d) {
             var dx = d.target.x - d.source.x,
               dy = d.target.y - d.source.y,
-              dr = Math.sqrt(dx * dx + dy * dy);
+              dr = d.orientation * Math.sqrt(dx * dx + dy * dy);
             return "M" +
               d.source.x + "," +
               d.source.y + "A" +
