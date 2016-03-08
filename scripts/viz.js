@@ -6,7 +6,6 @@
 
   var linkData = [];
 
-
   var opts = {
     dataLength: 3,
     setLength: 4,
@@ -86,7 +85,7 @@
             "source": globalData[firstIndex],
             "target": globalData[secondIndex],
             "name": item.role,
-            "orientation" : (Math.random() - 0.5)
+            "orientation" : (Math.random() + 0.8)
           });
         }
       }
@@ -175,7 +174,9 @@
       .attr('class', 'inner')
       .attr('fill', 'grey');
 
-    vennEnter.append("text")
+    vennEnter.filter(function(d) {
+        return d.__key__.split(",").length == 1;
+      }).append("text")
       .attr("class", "label")
       .attr("text-anchor", "middle")
       .attr("dy", ".35em")
@@ -198,7 +199,7 @@
         return d.center.x
       })
       .attr("y", function(d) {
-        return d.center.y
+        return d.center.y - d.innerRadius
       });
 
     //we need to rebind data so that parent data propagetes to child nodes (otherwise, updating parent has no effect on child.__data__ property)

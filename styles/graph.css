@@ -19,3 +19,7 @@
   stroke-width: 1.5px;
   color:white;
 }
+
+text.label {
+  font-size: 30px;
+}
