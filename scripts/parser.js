@@ -40,3 +40,37 @@ function parseRelation(str) {
     "right": parts[1].replace(" ", "")
   };
 }
+
+// Assumes already checked that str contains equals.
+function parseEquals(str) {
+  var parts = str.split("EQUALS");
+  var right;
+  var operator;
+
+  //Parses for AND
+  if (parts[1].indexOf("AND") > -1)
+  {
+    right = parts[1].split("AND");
+    operator = "AND";
+  }
+  //Parses for OR
+  else if (parts[1].indexOf("OR") > -1)
+  {
+    right = parts[1].split("OR");
+    operator = "OR";
+  }
+  //Currently set so if no OR and AND returns nothing
+  else
+  {
+    return {};
+  }
+
+  right[0].trim();
+  right[1].trim();
+
+  return {
+    "left": parts[0].trim(),
+    "right": right,
+    "operator": operator
+  };
+}
