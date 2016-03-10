@@ -138,9 +138,38 @@
             <h3 class="modal-title">User Manual</h3>
           </div>
           <div class="modal-body">
-            <h4>Overview</h4>
-            <h4>Getting Started</h4>
-            <h4>Common Problems</h4>
+            <h3><strong>Overview:</strong></h2>
+              <p><span style="font-weight: 400;">The purpose of the Description Logic Visualizer...</span></p>
+            <h3><strong>Getting Started:</strong></h2>
+              <p>Upon startup the programs world state is empty meaning that there are no nodes, concepts, or roles.</p>
+              <h4><strong>Using Concepts:</strong></h4>
+                <p><span style="font-weight: 400;">The concepts acts as propositions or basic facts that state that a node is an element of some set.</span></p>
+                <p>&nbsp;</p>
+                <p style="padding-left: 30px;"><span style="font-weight: 400;">Syntax: &nbsp;</span> <span style="font-weight: 400;">Concept(Object)</span></p>
+                <p style="padding-left: 30px;"><span style="font-weight: 400;">Example:</span> <span style="font-weight: 400;">Person(Chase)</span></p>
+                <p style="padding-left: 30px;">&nbsp;</p>
+                <p style="padding-left: 30px;"><span style="font-weight: 400;">Creates a set labeled &ldquo;Person&rdquo; with a node &ldquo;Chase&rdquo; inside.</span></p>
+                <p>&nbsp;</p>
+              <h4><strong>Using Roles:</strong></h4>
+                <p><strong><span style="font-weight: 400;">The roles act as binary predicates that result to true. Our systems works with a closed world assumption (CWA) so if there is no role explicitly stating that two objects are related it wil not be visualized.</span></strong></p>
+                <p>&nbsp;</p>
+                <p style="padding-left: 30px;"><span style="font-weight: 400;">Syntax:</span> <span style="font-weight: 400;">Role(Object1,Object2)</span></p>
+                <p style="padding-left: 30px;"><span style="font-weight: 400;">Example:</span> <span style="font-weight: 400;">Friends(Chase, Jeremey)</span></p>
+                <p style="padding-left: 30px;">&nbsp;</p>
+                <p style="padding-left: 30px;"><span style="font-weight: 400;">Connects the two nodes (Chase, Jeremey) by an arrow labeled &ldquo;Friends&rdquo;.</span></p>
+              <p>&nbsp;</p>
+              <h4><strong>Using T-Box:</strong></h4>
+                <p>&nbsp;</p>
+                <p style="padding-left: 30px;"><strong>Subset:</strong></p>
+                <p style="padding-left: 60px;"><span style="font-weight: 400;">Syntax:</span> <span style="font-weight: 400;">___ SUBSET ___</span></p>
+                <p style="padding-left: 60px;"><span style="font-weight: 400;">Example:</span> <span style="font-weight: 400;">Male SUBSET Person</span></p>
+                <p>&nbsp;</p>
+                <p style="padding-left: 30px;"><strong>Equals:</strong></p>
+                <p style="padding-left: 60px;"><span style="font-weight: 400;">Syntax:</span>&nbsp; &nbsp;<span style="font-weight: 400;">___ EQUALS ___ AND ___</span></p>
+                <p style="padding-left: 120px;"><span style="font-weight: 400;">___ EQUALS ___ OR ___</span></p>
+                <p style="padding-left: 60px;"><span style="font-weight: 400;">Example:</span></p>
+                <p>&nbsp;</p>
+            <h3><strong>Common Problems:</strong></h2>
           </div>
         </div>
       </div>
