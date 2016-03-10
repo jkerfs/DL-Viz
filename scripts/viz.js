@@ -1,7 +1,7 @@
 (function test() {
 
-  var width = Number(d3.select("svg#venn-viz").style("width").replace("px", "")),
-    height = Number(d3.select("svg#venn-viz").style("height").replace("px", "")),
+  var width = Number(d3.select("svg#venn-viz").style("width").replace("px", "")) - 50,
+    height = Number(d3.select("svg#venn-viz").style("height").replace("px", "")) - 50,
     colors = d3.scale.category10();
 
   var linkData = [];
@@ -13,6 +13,9 @@
     circleOpacity: 0.4,
     innerOpacity: 0.2
   };
+
+  var svg = d3.select("svg#venn-viz").append("g")
+      .attr("transform", "translate(" + 25 + "," + 25 + ")");
 
   d3.select("svg#venn-viz").append("svg:defs").selectAll("marker")
     .data(["end"]) // Different link/path types can be defined here
@@ -140,9 +143,9 @@
     .padding(0)
     .packingStragegy(d3.layout.venn.force)
 
-  svg = d3.select('svg#venn-viz')
+  /*svg = d3.select('svg#venn-viz')
     .attr('width', width)
-    .attr('height', height);
+    .attr('height', height);*/
 
   function refresh(data) {
     if (data) {
