@@ -46,4 +46,38 @@ they are modified in development mode.
 
   package.json is a list of the project's javascript library dependencies
 
-## Method Explanations
+## Data Representation
+
+### globalData
+The globalData variable is an array of concepts.  Each concept includes the following
+user-defined attributes:
+- name (title of the time)
+- set (array of sets that the item belongs to)
+
+#### Example:
+```
+Bird(Tweety)
+Penguin(Tweety)
+Dragon(Don)
+```
+
+```
+globalData = [{name: "Tweety", set: ["Bird", "Penguin"]}, {name: "Don", set: ["Dragon"]}]
+```
+
+### linkData
+The linkData variable is an array of roles.  Each role includes the following user-defined
+attributes:
+- name (title of the role)
+- source (reference to an entry in globalData that is the subject)
+- target (reference to an entry in globalData that is the object)
+
+#### Example:
+```
+HasFriend(Tweety,Don)
+```
+```
+linkData = [{name: "HasFriend",
+  source: {name:"Tweety", set:["Bird", "Penguin"]},
+  target: {name:"Don", set:["Dragon"]}}]
+```

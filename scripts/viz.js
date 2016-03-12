@@ -88,7 +88,7 @@
             "source": globalData[firstIndex],
             "target": globalData[secondIndex],
             "name": item.role,
-            "orientation" : (Math.random() + 1.0)
+            "orientation" : (1.0 - 0.5 * Math.random())
           });
         }
       }
@@ -129,9 +129,11 @@
       }
     }
     */
-
-    refresh(globalData);
+    if(globalData.length > 0) {
+      refresh(globalData);
+    }
   }
+
 
   d3.select("button#refresh").on('click', function() {
     readData();
@@ -392,4 +394,6 @@
     layout.packer().start()
     return test
   }
+
+  readData();
 })();
