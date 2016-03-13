@@ -36,6 +36,7 @@ var content = window.location.href.split('?content=');
 if (content.length == 2) {
   $.getJSON("examples/" + content[1], function(data) {
     renderData(data);
+    $('#refresh').click();
   });
 }
 
