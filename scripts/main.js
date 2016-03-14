@@ -48,6 +48,7 @@ if (content.length == 2) {
       if (currentPage < 0)
         currentPage = 0;
       renderData(data, currentPage);
+      $('#refresh').click();
     });
     $('#time-page-right').on('click', function () {
       currentPage += 1;
@@ -55,6 +56,7 @@ if (content.length == 2) {
         currentPage = data.length;
       }
       renderData(data, currentPage);
+      $('#refresh').click();
     });
     $('#refresh').click();
   });

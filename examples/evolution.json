@@ -1,10 +1,144 @@
-[{
+[
+{
 "concepts":  [
-  "Amphibian(Alligator)",
-  "Amphibian(Snake)",
-  "Fish(Tuna)"
+  "Theropod(Tyrannosaurus)",
+  "Ceratopsian(Triceratops)",
+  "Ornithopod(Thescelosaurus)",
+  "Theropod(Acheroraptor)",
+  "Pterosaur(Quetzalcoatlus)",
+  "Omnivore(Neuranklyus)",
+  "Herbivore(Basilemys)",
+  "Carnivore(Trionyx)",
+  "Prey(Insects)",
+  "Prey(Plants)",
+  "Prey(Mammals)",
+  "Prey(Fish)"
 ],
  "roles": [
-   "From(Tuna,Snake)"
+   "EatenBy(Triceratops,Tyrannosaurus)",
+   "EatenBy(Thescelosaurus,Tyrannosaurus)",
+   "EatenBy(Acheroraptor,Tyrannosaurus)",
+   "EatenBy(Fish,Tyrannosaurus)",
+   "EatenBy(Plants,Triceratops)",
+   "EatenBy(Mammals,Triceratops)",
+   "EatenBy(Fish,Triceratops)",
+   "EatenBy(Thescelosaurus,Acheroraptor)",
+   "EatenBy(Mammals,Acheroraptor)",
+   "EatenBy(Fish,Acheroraptor)",
+   "EatenBy(Thescelosaurus,Quetzalcoatlus)",
+   "EatenBy(Mammals,Quetzalcoatlus)",
+   "EatenBy(Fish,Neuranklyus)",
+   "EatenBy(Plants,Neuranklyus)",
+   "EatenBy(Plants,Basilemys)",
+   "EatenBy(Fish,Trionyx)"
+ ],
+ "tbox": [
+   "Theropod SUBSET Carnivore",
+   "Theropod SUBSET Dinosaur",
+   "Ceratopsian SUBSET Omnivore",
+   "Ceratopsian SUBSET Dinosaur",
+   "Ornithopod SUBSET Herbivore",
+   "Ornithopod SUBSET Dinosaur",
+   "Pterosaur SUBSET Carnivore"
  ]
-}]
+},
+{
+"concepts":  [
+  "Theropod(Tyrannosaurus)",
+  "Pachycephalosaur(Dracorex)",
+  "Ceratopsian(Triceratops)",
+  "Ornithopod(Thescelosaurus)",
+  "Theropod(Acheroraptor)",
+  "Pterosaur(Quetzalcoatlus)",
+  "Theropod(Avisaurus)",
+  "Omnivore(Neuranklyus)",
+  "Herbivore(Basilemys)",
+  "Carnivore(Trionyx)",
+  "Prey(Insects)",
+  "Prey(Plants)",
+  "Prey(Mammals)",
+  "Prey(Fish)"
+],
+ "roles": [
+   "EatenBy(Triceratops,Tyrannosaurus)",
+   "EatenBy(Thescelosaurus,Tyrannosaurus)",
+   "EatenBy(Acheroraptor,Tyrannosaurus)",
+   "EatenBy(Dracorex,Tyrannosaurus)",
+   "EatenBy(Fish,Tyrannosaurus)",
+   "EatenBy(Plants,Triceratops)",
+   "EatenBy(Mammals,Triceratops)",
+   "EatenBy(Fish,Triceratops)",
+   "EatenBy(Plants,Dracorex)",
+   "EatenBy(Thescelosaurus,Acheroraptor)",
+   "EatenBy(Mammals,Acheroraptor)",
+   "EatenBy(Fish,Acheroraptor)",
+   "EatenBy(Dracorex,Acheroraptor)",
+   "EatenBy(Avisaurus,Acheroraptor)",
+   "EatenBy(Thescelosaurus,Quetzalcoatlus)",
+   "EatenBy(Mammals,Quetzalcoatlus)",
+   "EatenBy(Insects,Avisaurus)",
+   "EatenBy(Fish,Neuranklyus)",
+   "EatenBy(Plants,Neuranklyus)",
+   "EatenBy(Plants,Basilemys)",
+   "EatenBy(Fish,Trionyx)"
+ ],
+ "tbox": [
+   "Theropod SUBSET Carnivore",
+   "Theropod SUBSET Dinosaur",
+   "Ceratopsian SUBSET Omnivore",
+   "Ceratopsian SUBSET Dinosaur",
+   "Ornithopod SUBSET Herbivore",
+   "Pachycephalosaur SUBSET Herbivore",
+   "Ornithopod SUBSET Dinosaur",
+   "Pterosaur SUBSET Carnivore"
+ ]
+},{
+"concepts":  [
+  "Theropod(Tyrannosaurus)",
+  "Ceratopsian(Triceratops)",
+  "Ornithopod(Thescelosaurus)",
+  "Theropod(Acheroraptor)",
+  "Pterosaur(Quetzalcoatlus)",
+  "Ceratopsian(Torosaurus)",
+  "Omnivore(Neuranklyus)",
+  "Herbivore(Basilemys)",
+  "Carnivore(Trionyx)",
+  "Prey(Insects)",
+  "Prey(Plants)",
+  "Prey(Mammals)",
+  "Prey(Fish)"
+],
+ "roles": [
+   "EatenBy(Triceratops,Tyrannosaurus)",
+   "EatenBy(Thescelosaurus,Tyrannosaurus)",
+   "EatenBy(Acheroraptor,Tyrannosaurus)",
+   "EatenBy(Torosaurus,Tyrannosaurus)",
+   "EatenBy(Fish,Tyrannosaurus)",
+   "EatenBy(Plants,Triceratops)",
+   "EatenBy(Mammals,Triceratops)",
+   "EatenBy(Fish,Triceratops)",
+   "EatenBy(Plants,Totosaurus)",
+   "EatenBy(Mammals,Totosaurus)",
+   "EatenBy(Fish,Totosaurus)",
+   "EatenBy(Thescelosaurus,Acheroraptor)",
+   "EatenBy(Mammals,Acheroraptor)",
+   "EatenBy(Fish,Acheroraptor)",
+   "EatenBy(Thescelosaurus,Quetzalcoatlus)",
+   "EatenBy(Mammals,Quetzalcoatlus)",
+   "EatenBy(Fish,Neuranklyus)",
+   "EatenBy(Plants,Neuranklyus)",
+   "EatenBy(Plants,Basilemys)",
+   "EatenBy(Fish,Trionyx)"
+ ],
+ "tbox": [
+   "Theropod SUBSET Carnivore",
+   "Theropod SUBSET Dinosaur",
+   "Ceratopsian SUBSET Omnivore",
+   "Ceratopsian SUBSET Dinosaur",
+   "Ornithopod SUBSET Herbivore",
+   "Pachycephalosaur SUBSET Herbivore",
+   "Ornithopod SUBSET Dinosaur",
+   "Pterosaur SUBSET Carnivore"
+ ]
+}
+]
