@@ -33,7 +33,8 @@
 
   // Build simple getter and setter Functions
   for (var key in opts) {
-    test[key] = getSet(key, test).bind(opts);
+    if (opts.hasOwnProperty(key))
+      test[key] = getSet(key, test).bind(opts);
   }
 
   function getSet(option, component) {
@@ -47,14 +48,15 @@
   }
 
   function readData() {
+    var i, j, item;
     linkData = [];
     var globalData = [];
     var lines = $("#concepts").val().split("\n");
-    for (var i = 0; i < lines.length; i++) {
-      var item = parseConcept(lines[i]);
+    for (i = 0; i < lines.length; i++) {
+      item = parseConcept(lines[i]);
       if (item.concept != undefined) {
         var found = false;
-        for (var j = 0; j < globalData.length; j++) {
+        for (j = 0; j < globalData.length; j++) {
           if (globalData[j].name == item.individual) {
             found = true;
             globalData[j].set.push(item.concept);
@@ -71,12 +73,12 @@
       }
     }
     lines = $("#roles").val().split("\n");
-    for (var i = 0; i < lines.length; i++) {
-      var item = parseRole(lines[i]);
+    for (i = 0; i < lines.length; i++) {
+      item = parseRole(lines[i]);
       if (item.role != undefined) {
         var firstIndex = -1;
         var secondIndex = -1;
-        for (var j = 0; j < globalData.length; j++) {
+        for (j = 0; j < globalData.length; j++) {
           if (globalData[j].name == item.individuals[0]) {
             firstIndex = j;
           } else if (globalData[j].name == item.individuals[1]) {
@@ -94,9 +96,9 @@
       }
     }
     lines = $("#tbox").val().split("\n");
-    for (var i = 0; i < lines.length; i++) {
+    for (i = 0; i < lines.length; i++) {
       var relation = parseRelation(lines[i]);
-      for(var j = 0; j < globalData.length; j++) {
+      for(j = 0; j < globalData.length; j++) {
         if($.inArray(relation.left, globalData[j].set) >= 0) {
           globalData[j].set.push(relation.right);
         }
@@ -143,7 +145,7 @@
   var layout = d3.layout.venn()
     .size([width, height])
     .padding(0)
-    .packingStragegy(d3.layout.venn.force)
+    .packingStragegy(d3.layout.venn.force);
 
   /*svg = d3.select('svg#venn-viz')
     .attr('width', width)
@@ -170,7 +172,7 @@
       })
       .attr('fill', function(d, i) {
         return colors(i)
-      })
+      });
 
     vennEnter.append('path')
       .attr('class', 'venn-area-path');
@@ -184,7 +186,7 @@
       }).append("text")
       .attr("class", "label")
       .attr("text-anchor", "middle")
-      .attr("dy", ".35em")
+      .attr("dy", ".35em");
 
 
     vennArea.selectAll('path.venn-area-path').transition()
@@ -193,7 +195,7 @@
       .attrTween('d', function(d) {
         return d.d
       });
-    //we need to rebind data so that parent data propagetes to child nodes (otherwise, updating parent has no effect on child.__data__ property)
+    //we need to rebind data so that parent data propagates to child nodes (otherwise, updating parent has no effect on child.__data__ property)
     vennArea.selectAll("text.label").data(function(d) {
         return [d];
       })
@@ -207,7 +209,7 @@
         return d.center.y - d.innerRadius
       });
 
-    //we need to rebind data so that parent data propagetes to child nodes (otherwise, updating parent has no effect on child.__data__ property)
+    //we need to rebind data so that parent data propagates to child nodes (otherwise, updating parent has no effect on child.__data__ property)
     vennArea.selectAll('circle.inner').data(function(d) {
         return [d];
       }).transition()
@@ -228,7 +230,7 @@
       .attrTween('d', function(d) {
         return d.d
       })
-      .remove()
+      .remove();
 
 
     svg.selectAll("path.curvelink").remove();
@@ -288,7 +290,7 @@
         return d.nodes
       }, function(d) {
         return d.name
-      })
+      });
 
     var pointsEnter = points.enter()
       .append('g')
@@ -300,17 +302,17 @@
 
         // Show the role membership of the node in the sidebar
         d3.select("span#member-of").text(d.__setKey__);
-        subs = {}
-        obs = {}
-        related_nodes = [d.name];
-        for (var i = 0; i < linkData.length; i++) {
-          if (linkData[i].source.name == d.name) {
-            subs[linkData[i].name] = 1 + (subs[linkData[i].name] || 0);
-            related_nodes.push(linkData[i].target.name);
+        var subs = {};
+        var obs = {};
+        var related_nodes = [d.name];
+        for (var i2 = 0; i2 < linkData.length; i2++) {
+          if (linkData[i2].source.name == d.name) {
+            subs[linkData[i2].name] = 1 + (subs[linkData[i2].name] || 0);
+            related_nodes.push(linkData[i2].target.name);
           }
-          if (linkData[i].target.name == d.name) {
-            obs[linkData[i].name] = 1 + (subs[linkData[i].name] || 0);
-            related_nodes.push(linkData[i].source.name);
+          if (linkData[i2].target.name == d.name) {
+            obs[linkData[i2].name] = 1 + (subs[linkData[i2].name] || 0);
+            related_nodes.push(linkData[i2].source.name);
           }
         }
         var subject_str = JSON.stringify(subs)
@@ -356,10 +358,10 @@
       .duration(test.duration())
       .attr('r', function(d) {
         return d.r
-      })
+      });
 
     points.exit().transition()
-      .remove()
+      .remove();
 
     //set the force ticker
     layout.packingConfig({
@@ -390,8 +392,8 @@
               return d.y
             });
         }
-      })
-    layout.packer().start()
+      });
+    layout.packer().start();
     return test
   }
 
