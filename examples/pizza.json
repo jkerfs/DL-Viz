@@ -1,4 +1,4 @@
-{
+[{
 "concepts":  [
   "Pizza(AllMeat)",
   "Pizza(Margharita)",
@@ -26,4 +26,4 @@
  "tbox": [
    "VeggieTopping SUBSET Topping"
  ]
-}
+}]

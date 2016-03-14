@@ -1,4 +1,4 @@
-{
+[{
 "concepts":  [
   "P(Sorting)",
   "P(MST)",
@@ -15,4 +15,4 @@
  "tbox": [
    "NP-Complete SUBSET NP"
  ]
-}
+}]

@@ -1,4 +1,4 @@
-{
+[{
 	"concepts": [
 		"Movie(Pulp_Fiction)",
 		"Director(Quentin_Tarantino)",
@@ -69,4 +69,4 @@
 		"Actress SUBSET Women",
 		"Actor SUBSET Men"
 	]
-}
+}]
