@@ -4,6 +4,7 @@
     height = Number(d3.select("svg#venn-viz").style("height").replace("px", "")) - 50,
     colors = d3.scale.category10();
 
+  var venn_id = 0;
   var linkData = [];
 
   var opts = {
@@ -393,6 +394,34 @@
             });
         }
       });
+
+    // pull .venn-circle text out of their circle and to the bottom of the child nodes
+    // this results in the text always being on top
+    setTimeout(function () {
+      d3.selectAll('text.label[fill]').each(function () {
+        var oldParent = $('#venn-id-' + this.id.split('-')[2] + ' circle');
+        console.log(oldParent.attr('cx'));
+        if (oldParent && oldParent.attr('cx')) {
+          this.setAttribute('x', parseFloat(oldParent.attr('cx')));
+          this.setAttribute('y', parseFloat(oldParent.attr('cy')) - parseFloat(oldParent.attr('r')));
+        }
+        else
+          this.parentNode.removeChild(this);
+        return this;
+      });
+      // first time we have processed this label
+      d3.selectAll('.venn-circle text.label').each(function () {
+        var grandparent = this.parentNode.parentNode;
+        var fill = this.parentNode.getAttribute('fill');
+        this.parentNode.id = 'venn-id-' + venn_id;
+        this.id = 'text-id-' + venn_id;
+        venn_id += 1;
+        this.parentNode.removeChild(this);
+        grandparent.appendChild(this);
+        this.setAttribute('fill', fill);
+      })
+    }, 1000);
+
     layout.packer().start();
     return test
   }
