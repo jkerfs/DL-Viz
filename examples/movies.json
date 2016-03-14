@@ -28,7 +28,7 @@
 		"Actor(Bill_Murray)",
 		"Actor(Owen_Wilson)",
 		"Actress(Cate_Blanchett)",
-		"Actess(Anjelica_Huston)"
+		"Actress(Anjelica_Huston)"
 	],
 	"roles": [
 		"ActedIn(Samuel_Jackson,Pulp_Fiction)",
