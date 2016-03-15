@@ -150,9 +150,9 @@
           </div>
           <div class="modal-body">
             <h3><strong>Overview:</strong></h3>
-              <p><span style="font-weight: 400;">The purpose of the Description Logic Visualizer...</span></p>
+              <p><span style="font-weight: 400;">The purpose of the Description Logic Visualizer is to represent description logic in an easy way to quickly grasp the concepts and their interactions with one another in the created world. Due to the constraints of being able to only show so much information, the visualizer is limited by specific constraints on how the knowledge is to be entered and how it can be represented.  </span></p>
             <h3><strong>Getting Started:</strong></h3>
-              <p>Upon startup the programs world state is empty meaning that there are no nodes, concepts, or roles.</p>
+              <p>Upon startup, the program’s world state is empty meaning that there are no individuals, concepts, or roles. The concept and role boxes act as the world’s assertion box and allow for the input of known concepts and roles respectively.  The T-Box allows the user to input subset and equivalence relations for the visualizer to interpret.  </p>
               <h4><strong>Using Concepts:</strong></h4>
                 <p><span style="font-weight: 400;">The concepts acts as propositions or basic facts that state that a node is an element of some set.</span></p>
                 <p>&nbsp;</p>
@@ -162,7 +162,7 @@
                 <p style="padding-left: 30px;"><span style="font-weight: 400;">Creates a set labeled &ldquo;Person&rdquo; with a node &ldquo;Chase&rdquo; inside.</span></p>
                 <p>&nbsp;</p>
               <h4><strong>Using Roles:</strong></h4>
-                <p><strong><span style="font-weight: 400;">The roles act as binary predicates that result to true. Our systems works with a closed world assumption (CWA) so if there is no role explicitly stating that two objects are related it wil not be visualized.</span></strong></p>
+                <p><strong><span style="font-weight: 400;">The roles act as a way of connecting two nodes or individuals through declared roles, as such “R(a,b)”. Our systems works with a closed world assumption (CWA) so if there is no role explicitly stating that two objects are related it will not be visualized.</span></strong></p>
                 <p>&nbsp;</p>
                 <p style="padding-left: 30px;"><span style="font-weight: 400;">Syntax:</span> <span style="font-weight: 400;">Role(Object1,Object2)</span></p>
                 <p style="padding-left: 30px;"><span style="font-weight: 400;">Example:</span> <span style="font-weight: 400;">Friends(Chase, Jeremey)</span></p>
@@ -181,6 +181,10 @@
                 <p style="padding-left: 60px;"><span style="font-weight: 400;">Example:</span></p>
                 <p>&nbsp;</p>
             <h3><strong>Common Problems:</strong></h3>
+              <p><strong><span style="font-weight: 400;">If the visualizer is not displaying anything at all, make sure that the “Refresh” button has been clicked.</span></strong></p>
+              <p><strong><span style="font-weight: 400;">
+              If the visualizer is not displaying the concepts or roles properly, it may be the case that leading or trailing whitespace within a role is giving the parser problems. An example is “R(a , b)”, leading to the visualizer interpreting the individual as “a ” or “ b”.</span></strong></p>
+
           </div>
         </div>
       </div>
