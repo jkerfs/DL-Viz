@@ -152,7 +152,7 @@
             <h3><strong>Overview:</strong></h3>
               <p><span style="font-weight: 400;">The purpose of the Description Logic Visualizer is to represent description logic in an easy way to quickly grasp the concepts and their interactions with one another in the created world. Due to the constraints of being able to only show so much information, the visualizer is limited by specific constraints on how the knowledge is to be entered and how it can be represented.  </span></p>
             <h3><strong>Getting Started:</strong></h3>
-              <p>Upon startup, the program’s world state is empty meaning that there are no individuals, concepts, or roles. The concept and role boxes act as the world’s assertion box and allow for the input of known concepts and roles respectively.  The T-Box allows the user to input subset and equivalence relations for the visualizer to interpret.  </p>
+              <p>Upon startup, the program’s world state is empty meaning that there are no individuals, concepts, or roles. The concept and role boxes act as the world’s assertion box by allowing the input of known concepts and roles. The T-Box allows the user to input subset and equivalence relations for the visualizer to interpret.  </p>
               <h4><strong>Using Concepts:</strong></h4>
                 <p><span style="font-weight: 400;">The concepts acts as propositions or basic facts that state that a node is an element of some set.</span></p>
                 <p>&nbsp;</p>
@@ -170,6 +170,7 @@
                 <p style="padding-left: 30px;"><span style="font-weight: 400;">Connects the two nodes (Chase, Jeremey) by an arrow labeled &ldquo;Friends&rdquo;.</span></p>
               <p>&nbsp;</p>
               <h4><strong>Using T-Box:</strong></h4>
+                <p><strong><span style="font-weight: 400;">The terminology box (T-Box) allows for the user to classify concepts to be subsets of other concepts (C⊑D). By specifying a subset relation, the visualizer essentially moves concept C within concept D. (∀x(x ∈ C ⇒ x ∈ D))</span></strong></p>
                 <p>&nbsp;</p>
                 <p style="padding-left: 30px;"><strong>Subset:</strong></p>
                 <p style="padding-left: 60px;"><span style="font-weight: 400;">Syntax:</span> <span style="font-weight: 400;">___ SUBSET ___</span></p>
@@ -208,10 +209,10 @@
                 </ol>
               </span></strong></p>
             <h3><strong>Common Problems:</strong></h3>
-              <p><strong><span style="font-weight: 400;">If the visualizer is not displaying anything at all, make sure that the “Refresh” button has been clicked.</span></strong></p>
-              <p><strong><span style="font-weight: 400;">
-              If the visualizer is not displaying the concepts or roles properly, it may be the case that leading or trailing whitespace within a role is giving the parser problems. An example is “R(a , b)”, leading to the visualizer interpreting the individual as “a ” or “ b”.</span></strong></p>
-
+              <ul>
+              <li>If the visualizer is not displaying anything at all, make sure that the &ldquo;Refresh&rdquo; button has been clicked.</li>
+              <li>If the visualizer is not displaying the concepts or roles properly, it may be the case that leading or trailing whitespace within a role is giving the parser problems. An example is &ldquo;R(a , b)&rdquo;, leading to the visualizer interpreting the individual as &ldquo;a &rdquo; or &ldquo; b&rdquo;.</li>
+              </ul>
           </div>
         </div>
       </div>
