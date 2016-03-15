@@ -256,6 +256,7 @@
       .data(linkData)
       .enter().append("text")
       .attr("class", "linkdesc")
+      .attr("font-size", "18px")
       .attr("fill", "white")
       .append("textPath")
       .attr("xlink:href", function(d) {
@@ -339,8 +340,7 @@
           return $.inArray(j.name, related_nodes) >= 0;
         }).append("text")
           .attr("class", "node-name")
-          .attr("stroke", "black")
-          .attr("stroke-width", "1px")
+          .attr("stroke-width", "0px")
           .attr("fill", "white")
           .text(function(k) { return k.name})
           .attr("x", d.x + 12)
