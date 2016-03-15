@@ -6,29 +6,26 @@
 		"Actor(Bruce_Willis)",
 		"Actor(John_Travolta)",
 		"Actress(Uma_Thurman)",
-		"CriticallyAcclaimed(Pulp_Fiction)",
-		"IMDB>8(Pulp_Fiction)",
 		"Movie(Fight_Club)",
 		"Director(David_Fincher)",
 		"Actor(Brad_Pitt)",
 		"Actor(Edward_Norton)",
 		"Actress(Helena_Bonham_Carter)",
-		"CriticallyAcclaimed(Fight_Club)",
-		"IMDB>8(Fight_Club)",
 		"Movie(Inglorious_Basterds)",
 		"Director(Quentin_Tarantino)",
-		"Actor(Brad_Pitt)",
 		"Actor(Christoph_Waltz)",
 		"Actor(Michael_Fassbender)",
 		"Actress(Diane_Kruger)",
-		"CriticallyAcclaimed(Inglorious_Basterds)",
-		"IMDB>8(Inglorious_Basterds)",
 		"Movie(Life_Aquatic)",
 		"Director(Wes_Anderson)",
 		"Actor(Bill_Murray)",
 		"Actor(Owen_Wilson)",
 		"Actress(Cate_Blanchett)",
-		"Actress(Anjelica_Huston)"
+		"Actress(Anjelica_Huston)",
+		"Actress(Angelina_Jolie)",
+		"Director(Angelina_Jolie)",
+		"Movie(Ocean's_Eleven)",
+		"Movie(Unbreakable)"
 	],
 	"roles": [
 		"ActedIn(Samuel_Jackson,Pulp_Fiction)",
@@ -63,10 +60,10 @@
 		"DirectedBy(Owen_Wilson,Wes_Anderson)",
 		"DirectedBy(Cate_Blanchett,Wes_Anderson",
 		"DirectedBy(Anjelica_Huston,Wes_Anderson)",
-		"DirectedBy(Life_Aquatic,Wes_Anderson)"
+		"DirectedBy(Life_Aquatic,Wes_Anderson)",
+		"ActedIn(Angelina_Jolie,Ocean's_Eleven)",
+		"DirectedBy(Unbreakable,Angelina_Jolie)"
 	],
 	"tbox": [
-		"Actress SUBSET Women",
-		"Actor SUBSET Men"
 	]
 }]

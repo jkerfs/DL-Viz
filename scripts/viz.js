@@ -101,7 +101,9 @@
       var relation = parseRelation(lines[i]);
       for(j = 0; j < globalData.length; j++) {
         if($.inArray(relation.left, globalData[j].set) >= 0) {
-          globalData[j].set.push(relation.right);
+          if($.inArray(relation.right, globalData[j].set) < 0) {
+            globalData[j].set.push(relation.right);
+	        }
         }
       }
     }
